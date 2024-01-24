@@ -50,7 +50,7 @@ pub struct GameInfo {
     /// Lasts until
     pub until: Option<f32>,
     /// Store
-    pub store: Store,
+    pub store: Option<Store>,
     /// Flags that describe product
     pub flags: GameFlags,
     #[serde(rename = "type")]
