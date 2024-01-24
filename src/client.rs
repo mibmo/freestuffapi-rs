@@ -179,7 +179,7 @@ impl Client {
             .await?
             .json::<ApiResponse<Vec<GameId>>>()
             .await
-            .map_err(|_| ClientError::InvalidResponse)?
+            .map_err(ClientError::HTTP)?
             .into_data()
             .map_err(ClientError::API)
     }
@@ -216,7 +216,7 @@ impl Client {
             .await?
             .json::<ApiResponse<HashMap<String, GameInfo>>>()
             .await
-            .map_err(|_| ClientError::InvalidResponse)?
+            .map_err(ClientError::HTTP)?
             .into_data()
             .map_err(ClientError::API)
     }
