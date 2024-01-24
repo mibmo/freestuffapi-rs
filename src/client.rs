@@ -21,7 +21,7 @@
 // @TODO: escape input! like category and game ids
 
 use crate::api::*;
-use reqwest::{header, Client as RClient, Method, Response, Url};
+use reqwest::{header, Client as RClient, Method, Response, StatusCode, Url};
 use serde::Deserialize;
 use std::collections::HashMap;
 use thiserror::Error;
@@ -117,6 +117,10 @@ pub enum ClientError {
     /// API error
     #[error("API error: {0}")]
     API(APIError),
+
+    /// Ratelimited by API
+    #[error("Too many requests")]
+    Ratelimited,
 }
 
 /// Client
@@ -159,6 +163,11 @@ impl Client {
             .execute(request)
             .await
             .map_err(ClientError::HTTP)
+            .and_then(|response| match response.status() {
+                status if status.is_success() => Ok(response),
+                StatusCode::TOO_MANY_REQUESTS => Err(ClientError::Ratelimited),
+                _ => Err(ClientError::InvalidResponse),
+            })
     }
 
     /// Pings via API and returns if success
