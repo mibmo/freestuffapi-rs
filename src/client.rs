@@ -243,7 +243,6 @@ impl Client {
 }
 
 #[derive(Debug, Deserialize)]
-#[allow(dead_code)]
 struct ApiResponse<Data> {
     success: bool,
     error: Option<String>,
@@ -251,9 +250,17 @@ struct ApiResponse<Data> {
     data: Data,
 }
 
-impl<Data> ApiResponse<Data> {
+impl<Data> ApiResponse<Data>
+where
+    Data: std::fmt::Debug,
+{
     /// Consumes self and returns response data
     pub fn into_data(self) -> Result<Data, APIError> {
-        self.message.map(Err).unwrap_or(Ok(self.data))
+        match (&self.message, &self.error) {
+            (None, None) if self.success => Ok(self.data),
+            (Some(message), Some(err)) => Err(format!("{err} ({message})")),
+            (None, Some(err)) => Err(err.to_string()),
+            _ => Err("invalid response".to_string()),
+        }
     }
 }
