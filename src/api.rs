@@ -23,9 +23,9 @@ pub struct GameInfo {
     /// Game URLs
     pub urls: Urls,
     /// Proxy URL. Deprecated: use urls.default
-    pub url: String,
+    pub url: Option<String>,
     /// Direct URL. Deprecated: use urls.org
-    pub org_url: String,
+    pub org_url: Option<String>,
     /// Game title
     pub title: String,
     /// Prices before discount
