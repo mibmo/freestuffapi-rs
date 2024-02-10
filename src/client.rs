@@ -18,7 +18,8 @@
 //! # }
 //! ```
 
-// @TODO: escape input! like category and game ids
+// @TODO: escape input! like category and game ids (initial hunch says game ids dont need escaping
+// since they're already limited to numbers only, but surely category must be escaped?)
 
 use crate::api::*;
 use reqwest::{header, Client as RClient, Method, Response, StatusCode, Url};
