@@ -28,7 +28,6 @@ use std::collections::HashMap;
 use thiserror::Error;
 
 type APIError = String;
-type GameId = u64;
 
 /// Builder errors
 #[derive(Error, Debug)]

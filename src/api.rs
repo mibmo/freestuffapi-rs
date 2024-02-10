@@ -3,6 +3,11 @@
 use serde::{Deserialize, Deserializer};
 use std::collections::HashMap;
 
+/// Game ID
+///
+/// Currently just a u64
+pub type GameId = u64;
+
 /// Service status
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "lowercase")]
