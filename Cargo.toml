@@ -1,10 +1,10 @@
 [package]
 name = "freestuffapi"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 license = "MIT"
 description = "Freestuffbot API"
-documentation = "https://docs.rs/freestuffapi-rs"
+documentation = "https://docs.rs/freestuffapi"
 repository = "https://github.com/mibmo/freestuffapi-rs"
 readme = "readme.md"
 categories = ["api-bindings", "asynchronous", "games"]
